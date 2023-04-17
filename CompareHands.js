@@ -114,7 +114,9 @@ module.exports = class CompareHands {
     let ranks = this.numberOfOcurrences(hand.cards);
     let values = Object.values(ranks);
     if (values.includes(2) && values.indexOf(2) !== values.lastIndexOf(2)) {
-      return this.rankToPoint(Object.keys(ranks)[values.lastIndexOf(2)]) * 1000 + this.rankToPoint(Object.keys(ranks)[values.indexOf(2)]) * 100 + this.rankToPoint(Object.keys(ranks)[values.indexOf(1)])
+      return this.rankToPoint(Object.keys(ranks)[values.lastIndexOf(2)]) * 1000 
+        + this.rankToPoint(Object.keys(ranks)[values.indexOf(2)]) * 100 
+        + this.rankToPoint(Object.keys(ranks)[values.indexOf(1)])
     }
     
     return 0;
@@ -126,7 +128,10 @@ module.exports = class CompareHands {
     let ranks = this.numberOfOcurrences(hand.cards);
     let values = Object.values(ranks);
     if (values.includes(2) && values.indexOf(2) === values.lastIndexOf(2)) {
-      return this.rankToPoint(Object.keys(ranks)[values.indexOf(2)]) * 1000 + this.rankToPoint(Object.keys(ranks)[values.lastIndexOf(1)]) * 100 + this.rankToPoint(Object.keys(ranks)[values.lastIndexOf(1)-1]) * 10 + this.rankToPoint(Object.keys(ranks)[values.lastIndexOf(1)-2]); // last can also be values.indexOf(1) because the lowest rank will be the first instance of the value 1. but for symantic syntax I go for lastIndexOf(1)-2. that way I am working my way backwards.
+      return this.rankToPoint(Object.keys(ranks)[values.indexOf(2)]) * 1000 
+        + this.rankToPoint(Object.keys(ranks)[values.lastIndexOf(1)]) * 100 
+        + this.rankToPoint(Object.keys(ranks)[values.lastIndexOf(1)-1]) * 10 
+        + this.rankToPoint(Object.keys(ranks)[values.lastIndexOf(1)-2]); // last can also be values.indexOf(1) because the lowest rank will be the first instance of the value 1. but for symantic syntax I go for lastIndexOf(1)-2. that way I am working my way backwards.
     }
     return 0;
   }
