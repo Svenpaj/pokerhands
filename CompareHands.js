@@ -4,6 +4,17 @@ module.exports = class CompareHands {
   static ranks = '23456789TJQKA';
 
   static comparer(hand1, hand2) {
+   this.sortByRank(hand1, hand2)
+    for (let i = 0; i < 5; i++) { 
+      console.log(hand1.cards[i]);
+      if (hand1.cards[i].suit === hand2.cards[i].suit &&
+        hand1.cards[i].rank === hand2.cards[i].rank) {
+        console.log(hand1.cards[i])
+        return ("There is an extra copy of this card. Game over..")
+        } // This does not work if there are 4 cards of the same rank total in the array and 1 of them is not sorted in the same order. example "'♥K[index4]','♦K[index5]' vs '♠K[index4]', '♥K[index5]'"
+    }
+    
+
     let comparers = [
       'isStraightFlush',
       'isFourOfAKind',
@@ -28,13 +39,14 @@ module.exports = class CompareHands {
     // return this.isFlush(hand1) > this.isFlush(hand2) ? 1 : 2;
 
     // return this.isStraight(hand1) > this.isStraight(hand2) ? 1 : 2;
+    
   }
 
   static isStraightFlush(hand) {
     return this.isStraight(hand) && this.isFlush(hand);
   }
 
-  static isFourOfAKind(hand) { // todo - score
+  static isFourOfAKind(hand) { 
     this.sortByRank(hand);
     let ranks = this.numberOfOcurrences(hand.cards);
     let values = Object.values(ranks);
@@ -44,7 +56,7 @@ module.exports = class CompareHands {
     return 0;
   }
 
-  static isFullHouse(hand) { // todo - score
+  static isFullHouse(hand) { 
     this.sortByRank(hand);
     let ranks = this.numberOfOcurrences(hand.cards);
     let values = Object.values(ranks);
@@ -99,7 +111,7 @@ module.exports = class CompareHands {
     return this.rankToPoint(ranks[4]);
   }
 
-  static isThreeOfAKind(hand) { // todo - score
+  static isThreeOfAKind(hand) {
     this.sortByRank(hand);
     let ranks = this.numberOfOcurrences(hand.cards);
     let values = Object.values(ranks);
@@ -109,7 +121,7 @@ module.exports = class CompareHands {
     return 0;
   }
 
-  static isTwoPair(hand) { // - check if keys are not the same!
+  static isTwoPair(hand) { 
     this.sortByRank(hand);
     let ranks = this.numberOfOcurrences(hand.cards);
     let values = Object.values(ranks);
@@ -123,7 +135,7 @@ module.exports = class CompareHands {
 
   }
 
-  static isOnePair(hand) { // todo - score
+  static isOnePair(hand) { 
     this.sortByRank(hand);
     let ranks = this.numberOfOcurrences(hand.cards);
     let values = Object.values(ranks);
@@ -136,13 +148,19 @@ module.exports = class CompareHands {
     return 0;
   }
 
-  static isHighest(hand) { // todo
+  static isHighest(hand) {
     this.sortByRank(hand);
-    let ranks = '';
-    for (let card of hand.cards) {
+    /*for (let card of hand.cards) {
       ranks += card.rank;
+    }*/
+    let score = 0, counter = 0;
+    for (let card of hand.cards) {
+      score += this.rankToPoint(card.rank) * 10 ** counter;
+      counter += 2;
     }
-    return this.rankToPoint(ranks[4]);
+    return score;
+    /*return this.rankToPoint(ranks[4]) * 1000
+      + this.rankToPoint(ranks[3]);*/
   }
 
   // helper functions
@@ -166,8 +184,5 @@ module.exports = class CompareHands {
         }
 
         return ranks;
-    }
-
-
-
+  }
 }
