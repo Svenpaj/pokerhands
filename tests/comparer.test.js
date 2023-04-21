@@ -5,7 +5,7 @@ const suits = '♥♦♣♠';
 test('check that comparer returns hand1 as the winning hand', () => {
   let hand1 = new Hand('♣2', '♥2', '♣2', '♥3', '♦3');
   let hand2 = new Hand('♦3', '♦3', '♦3', '♠4', '♦4');
-  expect(hand1)(CompareHands.comparer(hand1, hand2)).toBeGreaterThan(hand2);
+  expect(hand1Score)(CompareHands.comparer(hand1, hand2)).toBeGreaterThan(hand2Score);
 });
 
 /*test('check that isFullHouse returns a higher score for a stronger hand (if two hands both with full house)', () => {
