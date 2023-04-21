@@ -4,16 +4,10 @@ module.exports = class CompareHands {
   static ranks = '23456789TJQKA';
 
   static comparer(hand1, hand2) {
-   this.sortByRank(hand1, hand2)
-    for (let i = 0; i < 5; i++) { 
-      console.log(hand1.cards[i]);
-      if (hand1.cards[i].suit === hand2.cards[i].suit &&
-        hand1.cards[i].rank === hand2.cards[i].rank) {
-        console.log(hand1.cards[i])
-        return ("There is an extra copy of this card. Game over..")
-        } // This does not work if there are 4 cards of the same rank total in the array and 1 of them is not sorted in the same order. example "'♥K[index4]','♦K[index5]' vs '♠K[index4]', '♥K[index5]'"
+
+    if (this.isCheating(hand1, hand2)) {
+      return "Restart with new hands"
     }
-    
 
     let comparers = [
       'isStraightFlush',
@@ -32,8 +26,8 @@ module.exports = class CompareHands {
       let hand2Score = this[comparer](hand2);
       if (hand1Score === 0 && hand2Score === 0) { continue; }
       if (hand1Score === hand2Score) { return [hand1, hand2]; }
-      else if (hand1Score > hand2Score) { return hand1; }
-      else { return hand2; }
+      else if (hand1Score > hand2Score) { console.log("The winning hand is: "); return hand1; }
+      else { console.log("The winning hand is: "); return hand2; }
     }
     
     // return this.isFlush(hand1) > this.isFlush(hand2) ? 1 : 2;
@@ -177,12 +171,43 @@ module.exports = class CompareHands {
   }
 
   static numberOfOcurrences(hand) {
-        let ranks = {};
-        for (let card of hand) {
-            ranks[card.rank] = ranks[card.rank] || 0;
-            ranks[card.rank]++;
+    let ranks = {};
+    for (let card of hand) {
+        ranks[card.rank] = ranks[card.rank] || 0;
+        ranks[card.rank]++;
         }
+    return ranks;
+  }
 
-        return ranks;
+  static isCheating(hand1, hand2) {
+
+    var hand1Cards = hand1.cards.map(function (o) { return o.suit + o.rank });
+    var hand2Cards = hand2.cards.map(function (o) { return o.suit + o.rank });
+       
+    let duplicateCards1 = hand1Cards.filter((item, index) => hand1Cards.indexOf(item) != index);
+    if (duplicateCards1 != 0) {
+      console.log("Hand 1 contains duplicate cards of: ");
+      console.log(duplicateCards1);
+      console.log(hand1);
+      return hand1;
+    }
+
+    let duplicateCards2 = hand2Cards.filter((item, index) => hand2Cards.indexOf(item) != index);
+    if (duplicateCards2 != 0) {
+      console.log("Hand 2 contains duplicate cards of:");
+      console.log(duplicateCards2);
+      console.log(hand2);
+      return hand2;
+    }
+    
+    let cheatCard = hand1Cards.filter(hand1CardsItem => hand2Cards.includes(hand1CardsItem));
+
+
+    if (cheatCard.length >= 1) {
+      console.log("One of the players have an extra copy of: ")
+      console.log(cheatCard);
+      return 1;
+    }
+    return false;
   }
 }
