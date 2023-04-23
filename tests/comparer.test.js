@@ -27,8 +27,8 @@ test('check that comparer returns hand1 as the winning hand with "isThreeOfAKind
 });
 
 test('check that comparer returns hand1 as the winning hand with "isStraight method', () => {
-  let hand1 = new Hand('♣2', '♥3', '♦4', '♥5', '♦6');
-  let hand2 = new Hand('♣4', '♠5', '♠6', '♠7', '♦8');
+  let hand1 = new Hand('♣4', '♠5', '♠6', '♠7', '♦8');
+  let hand2 = new Hand('♣2', '♥3', '♦4', '♥5', '♦6');
   expect(CompareHands.comparer(hand1, hand2)).toBe(hand1)
 });
 
