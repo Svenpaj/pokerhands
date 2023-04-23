@@ -206,6 +206,8 @@ module.exports = class CompareHands {
     if (cheatCard.length >= 1) {
       console.log("One of the players have an extra copy of: ")
       console.log(cheatCard);
+      console.log(hand1);
+      console.log(hand2);
       return 1;
     }
     return false;

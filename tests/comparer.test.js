@@ -39,9 +39,22 @@ test('check that comparer returns hand1 as the winning hand with "isFlush method
 });
 
 test('check that comparer returns hand1 as the winning hand with "isFullHouse method', () => {
-const suits = '♥♦♣♠';
   let hand1 = new Hand('♥3', '♠3', '♣3', '♣4', '♥4');
   let hand2 = new Hand('♥2', '♠2', '♦2', '♦4', '♠4');
+  expect(CompareHands.comparer(hand1, hand2)).toBe(hand1)
+});
+
+test('check that comparer returns hand1 as the winning hand with "isFourOfAKind method', () => {
+const suits = '♥♦♣♠';
+  let hand1 = new Hand('♥3', '♠3', '♣3', '♦3', '♥4');
+  let hand2 = new Hand('♥2', '♠2', '♣2', '♦2', '♠4');
+  expect(CompareHands.comparer(hand1, hand2)).toBe(hand1)
+});
+
+test('check that comparer returns hand1 as the winning hand with "isStraightFlush method', () => {
+const suits = '♥♦♣♠';
+  let hand1 = new Hand('♥3', '♥4', '♥5', '♥6', '♥7');
+  let hand2 = new Hand('♠2', '♠3', '♠4', '♠5', '♠6');
   expect(CompareHands.comparer(hand1, hand2)).toBe(hand1)
 });
 
